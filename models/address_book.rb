@@ -20,4 +20,15 @@ class AddressBook
         # #11
         entries.insert(index, Entry.new(name, phone_number, email))
     end
+    
+    def remove_entry(name, phone_number, email)
+        index = 0
+        entries.each do |entry|
+            # #10
+            if name.casecmp(entry.name)
+                index.delete
+            end
+            index+= 1
+        end
+    end
 end
