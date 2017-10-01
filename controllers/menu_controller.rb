@@ -1,13 +1,13 @@
 #1
 require_relative '../models/address_book'
-    
+
 class MenuController
     attr_reader :address_book
-    
+
     def initialize
         @address_book = AddressBook.new
     end
-    
+
     def main_menu
         # #2
         puts "Main Menu - #{address_book.entries.count} entries"
@@ -15,12 +15,13 @@ class MenuController
         puts "2 - Create an entry"
         puts "3 - Search for an entry"
         puts "4 - Import entries from a CSV"
-        puts "5 - Exit"
+        puts "5 - View entry by number"
+        puts "6 - Exit"
         print "Enter your selection: "
-        
+
         # #3
         selection = gets.to_i
- 
+
          # #7
         case selection
             when 1
@@ -40,6 +41,10 @@ class MenuController
                 read_csv
                 main_menu
             when 5
+                system "clear"
+                view_by_number
+                main_menu
+            when 6
                 puts "Good-bye!"
                 # #8
                 exit(0)
@@ -50,21 +55,21 @@ class MenuController
                 main_menu
         end
     end
-    
+
     # #10
     def view_all_entries
         # #14
         address_book.entries.each do |entry|
-        system "clear"
-        puts entry.to_s
-        # #15
-        entry_submenu(entry)
+            system "clear"
+            puts entry.to_s
+            # #15
+            entry_submenu(entry)
         end
-        
+
         system "clear"
-        puts "End of entries" 
+        puts "End of entries"
     end
-    
+
     def create_entry
         # #11
         system "clear"
@@ -76,33 +81,33 @@ class MenuController
         phone = gets.chomp
         print "Email: "
         email = gets.chomp
-        
+
         # #13
         address_book.add_entry(name, phone, email)
-        
+
         system "clear"
         puts "New entry created"
     end
-    
+
     def search_entries
-        
-    end
-    
-    def read_csv
-        
+
     end
 
- 
+    def read_csv
+
+    end
+
+
     def entry_submenu(entry)
         # #16
         puts "n - next entry"
         puts "d - delete entry"
         puts "e - edit this entry"
         puts "m - return to main menu"
-        
+
         # #17
         selection = gets.chomp
-        
+
         case selection
             # #18
             when "n"
@@ -118,5 +123,26 @@ class MenuController
                 puts "#{selection} is not a valid input"
                 entry_submenu(entry)
         end
+    end
+
+    def view_by_number()
+        system "clear"
+        index = 1
+        address_book.entries.each do |entry|
+            # #10
+            p "#{index}: #{entry.name}"
+            index+= 1
+        end
+
+        selection = index + 1
+
+        until selection <= index
+            print "Please enter a valid selection from the options above: "
+            selection = gets.to_i
+        end
+
+        selection = selection - 1
+        puts address_book.entries[selection].to_s
+
     end
  end
