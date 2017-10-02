@@ -67,4 +67,18 @@ class AddressBook
         # #5
         return nil
     end
+
+    def iterative_search(name)
+        x = 0
+        while x <= entries.length - 1
+            test_name = entries[x].name
+            if name.casecmp(test_name) == 0
+                return entries[x]
+            else
+                x += 1
+            end
+        end
+
+        return nil
+    end
 end
