@@ -16,7 +16,8 @@ class MenuController
         puts "3 - Search for an entry"
         puts "4 - Import entries from a CSV"
         puts "5 - View entry by number"
-        puts "6 - Exit"
+        puts "6 - Delete all entries"
+        puts "7 - Exit"
         print "Enter your selection: "
 
         # #3
@@ -45,6 +46,11 @@ class MenuController
                 view_by_number
                 main_menu
             when 6
+                system "clear"
+                address_book.nuke
+                p "Address book has been cleared!"
+                main_menu
+            when 7
                 puts "Good-bye!"
                 # #8
                 exit(0)
@@ -227,4 +233,5 @@ class MenuController
             search_submenu(entry)
         end
     end
+
  end
